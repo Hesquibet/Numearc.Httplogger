@@ -11,6 +11,11 @@ app.get('/api/*', function(req, res){
   res.sendStatus(200);
 });
 
+app.post('/api/*', function(req, res){
+  io.emit('message', { for: req.originalUrl, body : req.body });
+  res.sendStatus(200);
+});
+
 io.on('connection', function(socket){
   console.log('a user connected gogo');
   socket.on('disconnect', function(){
